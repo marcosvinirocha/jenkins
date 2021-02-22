@@ -4,11 +4,7 @@ pipeline {
         stage('build') {
             steps {
                 sh 'mvn --version'
-            }
-            stage('testes'){
-                steps{
-                    // executar testes
-                }
+            
             }
         }
     }
