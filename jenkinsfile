@@ -5,6 +5,11 @@ pipeline {
             steps {
                 sh 'mvn --version'
             }
+            stage('testes'){
+                steps{
+                    // executar testes
+                }
+            }
         }
     }
 }
