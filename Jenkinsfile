@@ -8,7 +8,7 @@ pipeline {
         VERSION_RC = "rc.2"
     }
     stages {
-        stage("git clone") {
+        stage("Checkout Git") {
             steps {
                 git "https://github.com/ragsns/hello-world-spring-boot"
             }
