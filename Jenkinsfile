@@ -29,7 +29,7 @@ pipeline {
             }
             
         }
-        stage(deploy) {
+        stage("Deploy") {
             when {
                 expression { return params.RC }
             } 
