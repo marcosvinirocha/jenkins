@@ -8,7 +8,7 @@ pipeline {
         VERSION_RC = "rc.2"
     }
     stages {
-        stage("Checkout Git") {
+        stage("SCM Checkout") {
             steps {
                 git "https://github.com/ragsns/hello-world-spring-boot"
             }
