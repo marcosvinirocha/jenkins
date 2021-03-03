@@ -1,62 +1,34 @@
 pipeline {
-    agent { docker { image "maven:3.3.3" } }
-    parameters {
-        booleanParam(name: "RC", defaultValue: false, description: "Is this a Release Candidate?")
+    agent {
+        docker {
+            image 'maven:3-alpine' 
+            args '-v /root/.m2:/root/.m2' 
         }
-        environment {
-        VERSION = "0.1.0"        
-        VERSION_RC = "rc.2"
     }
-    stages {
-        stage("SCM Checkout") {
+        stages{
+        stage('SCM Checkout') {
             steps {
-                git "https://github.com/ragsns/hello-world-spring-boot"
+                git branch: 'main', url: 'https://github.com/SillasVinicius/myMediaListBackend'
             }
+        
         }
         stage("Build"){
-            environment {
-                VERSION_SUFFIX = getVersionSuffix()
-            }
             steps{
-                sh "mvn -B -DskipTests clean package"
-            }
-        }
-        stage("Testing"){
-            steps{
-                sh "mvn test"
-                junit "test-results.xml"
-                
+               sh 'mvn -B -DskipTests package' 
             }
             
         }
-        stage("Deploy") {
-            when {
-                expression { return params.RC }
-            } 
+        stage("Test"){
             steps{
-                echo "this is deploy of aplication"
+                sh 'mvn test'
+            }
+            post{
+                always{
+                    junit "target/surefire-reports/*.xml"
+                    echo "this is simple test"
+                }
+                
             }
         }
-
-    }
-
-    post{
-        always{
-            echo "====++++always++++===="
-        }
-        success{
-            echo "====++++only when successful++++===="
-        }
-        failure{
-            echo "====++++only when failed++++===="
-        }
-    }
-}
-
-String getVersionSuffix() {
-    if (params.RC) {
-        return env.VERSION_RC
-    } else {
-        return env.VERSION_RC + "+ci." + env.BUILD_NUMBER
     }
 }
