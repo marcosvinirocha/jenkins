@@ -14,21 +14,17 @@ pipeline {
         }
         stage("Build"){
             steps{
-               sh 'mvn -B -DskipTests package' 
-            }
-            
-        }
-        stage("Test"){
-            steps{
-                sh 'mvn test'
+               sh "mvn -Dmaven.test.failure.ignore=true clean package" 
             }
             post{
                 always{
-                    junit "target/surefire-reports/*.xml"
+                    junit "**target/surefire-reports/*.xml"
                     echo "this is simple test"
                 }
                 
             }
+            
         }
+        
     }
 }
