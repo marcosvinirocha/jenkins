@@ -14,7 +14,7 @@ pipeline {
         }
         stage("Build"){
             steps{
-               sh 'mvn -B -DskipTests package' 
+               sh "mvn -Dmaven.test.failure.ignore=true clean package"
             }
             
         }
@@ -23,9 +23,9 @@ pipeline {
                 sh 'mvn test'
             }
             post{
-                always{
-                    junit "target/surefire-reports/*.xml"
-                    echo "this is simple test"
+                success{
+                    junit "**/target/surefire-reports/TEST-*.xml"
+                    archiveArtifacts "target/*.jar"
                 }
                 
             }
