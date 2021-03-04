@@ -8,7 +8,7 @@ pipeline {
         stages{
         stage('SCM Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/SillasVinicius/myMediaListBackend'
+                git branch: 'main', url: 'https://github.com/tolgafiratoglu/spring-boot-junit-test-examples'
             }
         
         }
