@@ -8,6 +8,7 @@ pipeline {
     parameters{
         choice(name:'VERSION',choices:['1.10', '1.2.0', '1.3.0'], description: '')
         booleanParam(name:'executeTests', defaultValue:true, description:'')
+        booleanParam(name:'deploy', defaultValue:true, description:'')
     }
         stages{
         stage('SCM Checkout') {
@@ -39,6 +40,17 @@ pipeline {
                 
             }
             
+        }
+
+        stage("Deploy"){
+            when{
+                expression{
+                    params.deploy
+                }
+            }
+            steps{
+                echo "Deploying app to production"
+            }
         }
         
     }
