@@ -11,19 +11,19 @@ pipeline {
         booleanParam(name:'deploy', defaultValue:true, description:'')
     }
         stages{
-        stage('SCM Checkout') {
+            stage('SCM Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic'
             }
         
         }
-        stage("Build"){
+            stage("Build"){
             steps{
                 sh 'mvn -Dmaven.test.failure.ignore=true  package' 
             }
             
         }
-        stage("Test"){
+            stage("Test"){
             when{
                 expression{
                     params.executeTests
@@ -42,7 +42,7 @@ pipeline {
             
         }
 
-        stage("Deploy"){
+            stage("Deploy"){
             when{
                 expression{
                     params.deploy
