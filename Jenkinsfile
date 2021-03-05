@@ -14,13 +14,13 @@ pipeline {
         }
         stage("Build"){
             steps{
-               sh 'mvn -Dmaven.test.failure.ignore=true  package' 
+                sh 'mvn -Dmaven.test.failure.ignore=true  package' 
             }
             
         }
         stage("Test"){
             steps{
-               sh 'mvn test' 
+                sh 'mvn test' 
             }
             post{
                 always{
