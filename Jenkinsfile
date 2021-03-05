@@ -5,10 +5,14 @@ pipeline {
             args '-v /root/.m2:/root/.m2' 
         }
     }
+    parameters{
+        choice(name:'VERSION',choices:['1.10', '1.2.0', '1.3.0'], description: '')
+        booleanParam(name:'executeTests', defaultValue:true, description:'')
+    }
         stages{
         stage('SCM Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/tolgafiratoglu/spring-boot-junit-test-examples'
+                git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic'
             }
         
         }
@@ -19,6 +23,11 @@ pipeline {
             
         }
         stage("Test"){
+            when{
+                expression{
+                    params.executeTests
+                }
+            }
             steps{
                 sh 'mvn test' 
             }
