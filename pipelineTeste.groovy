@@ -21,7 +21,6 @@ pipeline {
                 sh 'mvn -Dmaven.test.failure.ignore=true  package'
             }
         }
-
         stage('Test') {
             when {
                 expression {
@@ -36,11 +35,8 @@ pipeline {
                     junit '**/target/surefire-reports/*.xml'
                     archiveArtifacts 'target/*.jar'
                 }
-
             }
-
         }
-
         stage('Deploy') {
             when {
                 expression {
@@ -51,6 +47,5 @@ pipeline {
                 echo "Deploying app to production"
             }
         }
-
     }
 }
