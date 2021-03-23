@@ -7,9 +7,31 @@ pipeline{
     }
 
     stages{
-        stage('SCM Checkout') {
+        stage('Checkout SCM ') {
             steps {
                checkout scm
+            }
+        }
+
+        stage("Build") {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true  package'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo "Deploying app to production"
             }
         }
     }
