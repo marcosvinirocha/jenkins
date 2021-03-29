@@ -3,4 +3,4 @@ docker run --memory 512m -d -p8080:8080 -v /var/run/docker.sock:/var/run/docker.
 curl http://192.168.100.5:4243/version^C
 docker exec -it eloquent_bassi /bin/bash
 
-docker run --memory 512m --stop-timeout 3600 sonarqube
+docker run --memory 1024m --name teste sonarqube:7.9.6-community
