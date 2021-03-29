@@ -1,4 +1,6 @@
-docker run -d -p8080:8080 -v /var/run/docker.sock:/var/run/docker.sock marcosudia/jenkins
+docker run --memory 512m -d -p8080:8080 -v /var/run/docker.sock:/var/run/docker.sock marcosudia/jenkins
 
 curl http://192.168.100.5:4243/version^C
 docker exec -it eloquent_bassi /bin/bash
+
+docker run --memory 512m --stop-timeout 3600 sonarqube
