@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('SCM Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic'
+                 checkout scm
             }
         }
         stage("Build") {
